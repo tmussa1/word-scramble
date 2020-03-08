@@ -1,8 +1,10 @@
 <template>
   <div class="intro">
+    <!-- Passed in as a prop from App.vue -->
     <h3>{{ msg }}</h3>
     <div class="spacer"></div>
-    <div v-if="gameOn" class="player">GAME ON, {{name}}!</div>
+    <!-- Renders after user is signed in -->
+    <div v-if="gameOn" class="player">Game on, {{name}}!</div>
     <div v-if="startUp" class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text" id>Enter your player name:</span>
@@ -13,33 +15,43 @@
       <button type="button" class="btn btn-dark" @click="gameOnFunc">Let's play</button>
       <div class="spacer"></div>
     </div>
+    <!-- Scrambled word is presented -->
     <div v-if="playGame">
       <div class="scrambledWord">
         Your mystery word is:
         <span>{{scrambledWord}}</span>
       </div>
       <div class="hint">
+        <!-- Hint is presented -->
         Hint:
         <span>{{hint}}</span>
       </div>
       <div class="row">
-        <input type="text" class="form-control col-md-4" v-model="answer" />
+        <input
+          type="text"
+          class="form-control col-md-4"
+          v-model="answer"
+          v-on:keyup.enter="submitAnswer"
+        />
         <div class="spacer"></div>
         <button type="button" class="btn btn-dark" @click="submitAnswer">Submit Guess</button>
         <div class="spacer"></div>
       </div>
     </div>
-    <div v-if="matchFound" class="successClass">
-      <div class="alert alert-success col-md-5" role="alert">
+    <!-- Displays if user guesses right -->
+    <div v-if="matchFound === true" class="successClass">
+      <div :class="alertSucess" role="alert">
         You got it! Nice work.
-        <button type="button" class="btn btn-primary col-md-3">Play again</button>
+        <button
+          type="button"
+          class="btn btn-primary col-md-3"
+          @click="playAgain"
+        >Play again</button>
       </div>
     </div>
-    <div v-if="failure && !matchFound" class="failureClass">
-      <div
-        class="alert alert-danger col-md-5"
-        role="alert"
-      >Sorry, that is not correct. Please try again!</div>
+    <!-- Displays if user guesses wrong -->
+    <div v-if="failure === true" class="failureClass">
+      <div :class="alertFailure" role="alert">Sorry, that is not correct. Please try again!</div>
     </div>
   </div>
 </template>
@@ -50,6 +62,11 @@ export default {
   props: {
     msg: String
   },
+  /**
+   * Several flags to alternate the divs and collecting data
+   * The words array contains the data to play the game against
+   * Feedback styling is done with class binding
+   */
   data: function() {
     return {
       startUp: true,
@@ -60,6 +77,8 @@ export default {
       answer: "",
       matchFound: false,
       failure: false,
+      alertSucess: "alert alert-success col-md-5",
+      alertFailure: "alert alert-danger col-md-5",
       words: [
         [
           "gauge",
@@ -86,6 +105,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * If the user entered a valid name (more than one letter), the game div
+     * will be displayed
+     */
     gameOnFunc: function() {
       if (this.name.length > 0) {
         this.gameOn = true;
@@ -98,28 +121,62 @@ export default {
       }
       this.rand();
     },
+    /**
+     * Generates a random number spanning the words array
+     */
     rand: function() {
-      let rand = Math.floor(Math.random() * this.words.length) + 1;
+      let rand = Math.floor(Math.random() * this.words.length);
       this.wordIndex = rand;
     },
     submitAnswer: function() {
-      for (let word in this.words) {
+      let word = 0;
+      /**
+       * The reason to do a second matching by hint is to make sure that the user doesn't
+       * keep giving answers he gave to a previous question. Doing matching by the current hint
+       * prevents that from happening
+       */
+      for (word = 0; word < this.words.length; word++) {
         if (
-          this.answer.toUpperCase() == this.words[word][0].toUpperCase() &&
-          this.hint == this.words[word][1]
+          this.answer.toUpperCase().trim() ==
+            this.words[word][0].toUpperCase().trim() &&
+          this.hint.trim() == this.words[word][1].trim()
         ) {
           this.matchFound = true;
           this.failure = false;
-          console.log(this.matchFound);
-          console.log(this.failure);
-        } else {
-          this.matchFound = false;
-          this.failure = true;
+          break;
         }
       }
+
+      /**
+       * If the loop iterates to the end, no match is found
+       */
+      if (word >= this.words.length) {
+        this.matchFound = false;
+        this.failure = true;
+      }
+    },
+    /**
+     * Resets the scrambled word and hint
+     * If random generator sets the value to the index we have seen in the session,
+     * it keeps iterating till it finds a different index. This ensures not having the same
+     *  word in a row
+     */
+    playAgain: function() {
+      let currentIndex = this.wordIndex;
+      this.rand();
+
+      while (currentIndex === this.wordIndex) {
+        this.rand();
+      }
+
+      this.scrambledWord;
     }
   },
   computed: {
+    /**
+     * Shuffles characters by using a random number generator and
+     * joins them back to form a word
+     */
     scrambledWord: function() {
       let charArray = this.words[this.wordIndex][0].split("");
       let shuffled = charArray.sort(function() {
@@ -128,6 +185,9 @@ export default {
       let joinedStr = shuffled.join("").toUpperCase();
       return joinedStr;
     },
+    /**
+     * The second element of the 2D array is hint/description
+     */
     hint: function() {
       return this.words[this.wordIndex][1];
     }
@@ -136,6 +196,7 @@ export default {
 </script>
 
 <style scoped>
+/* Used some bootstrap styling */
 .intro {
   text-decoration-style: double;
   text-align: left;
