@@ -34,7 +34,13 @@ The following categories of error codes can provide a hint to what the server is
 ## Bibliography
 
 [How I taught REST APIs to my wife] (http://www.looah.com/source/view/2284)
-[Introduction to REST APIs] (https://itnext.io/javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
+
+[Introduction to REST APIs] (https://itnext.io/
+javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
+
 [Idempotency in REST APIs] (https://restfulapi.net/idempotent-rest-apis/)
+
 [Http status codes] (https://www.restapitutorial.com/httpstatuscodes.html)
+
+
 
