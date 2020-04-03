@@ -7,13 +7,13 @@
 
   A RESTful web service may expose different types of operations based on the actions a client needs to perform on the resource being served. Four of the major operations are discussed below
 
-    GET – A get request is one of the simplest operations. In layman’s terms, a client commonly a browser makes a request to a server to be served up a content. The server checks if the client is a known user with valid permissions and if the resource is available, then sends a response. The server might respond with defined categories of error codes in case of having the above preconditions unfulfilled. The error code response might suggest an unauthorized user, or a resource not found to say the least. More on error codes later. A get request is supposed to be designed to not have side effects of modifying a resource. 
+    **GET** – A get request is one of the simplest operations. In layman’s terms, a client commonly a browser makes a request to a server to be served up a content. The server checks if the client is a known user with valid permissions and if the resource is available, then sends a response. The server might respond with defined categories of error codes in case of having the above preconditions unfulfilled. The error code response might suggest an unauthorized user, or a resource not found to say the least. More on error codes later. A get request is supposed to be designed to not have side effects of modifying a resource. 
 
-    POST – A post operation is used for creating a new resource. The data to be added is commonly obtained using an html form or through another client service but getting data through other testing tools like CURL, POSTMAN and SOAPUI are also common. The API may do some validation based on the implementation such as checking for a duplicate resource or if all the required fields are populated and with the correct format before storing the resource.
+    **POST** – A post operation is used for creating a new resource. The data to be added is commonly obtained using an html form or through another client service but getting data through other testing tools like CURL, POSTMAN and SOAPUI are also common. The API may do some validation based on the implementation such as checking for a duplicate resource or if all the required fields are populated and with the correct format before storing the resource.
 
-    PUT – A put request is made to modify an existing resource. The implementation might pull the resource based on a parameter passed in from the client and make the appropriate modifications. Unlike a post request, put requests are idempotent, meaning trying to modify a resource that has already been modified doesn’t change anything. 
+    **PUT** – A put request is made to modify an existing resource. The implementation might pull the resource based on a parameter passed in from the client and make the appropriate modifications. Unlike a post request, put requests are idempotent, meaning trying to modify a resource that has already been modified doesn’t change anything. 
 
-    DELETE – A delete request is made when trying to delete a resource. If persistence is part of the application, the resource will be deleted from disk. Trying to delete a resource that doesn’t exist, or other constraints may throw exceptions based on the implementation.
+    **DELETE** – A delete request is made when trying to delete a resource. If persistence is part of the application, the resource will be deleted from disk. Trying to delete a resource that doesn’t exist, or other constraints may throw exceptions based on the implementation.
  
 The following categories of error codes can provide a hint to what the server is having trouble with. 
 
@@ -31,11 +31,10 @@ The following categories of error codes can provide a hint to what the server is
 
   More advanced topics like Hypermedia as the Engine of Application, HATEOAS, will be discussed in later iterations.
 
-##Bibliography
-```
+## Bibliography
 
-[How I taught REST APIs to my wife](http://www.looah.com/source/view/2284)
-[Introduction to REST APIs](https://itnext.io/javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
-[Idempotency](https://restfulapi.net/idempotent-rest-apis/)
-([Http status codes]https://www.restapitutorial.com/httpstatuscodes.html)
+[How I taught REST APIs to my wife] (http://www.looah.com/source/view/2284)
+[Introduction to REST APIs] (https://itnext.io/javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
+[Idempotency in REST APIs] (https://restfulapi.net/idempotent-rest-apis/)
+[Http status codes] (https://www.restapitutorial.com/httpstatuscodes.html)
 
