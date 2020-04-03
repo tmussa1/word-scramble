@@ -81,7 +81,7 @@ export default {
       alertFailure: "alert alert-danger col-md-5",
       words: [
         [
-          "gauge",
+          "gauge",       
           "a measuring instrument for measuring and indicating a quantity such as the thickness of wire or the amount of rain"
         ],
         [
