@@ -32,11 +32,11 @@ The following categories of error codes can provide a hint to what the server is
   More advanced topics like Hypermedia as the Engine of Application, HATEOAS, will be discussed in later iterations.
 
 ## Bibliography
+The articles below have been useful
 
 [How I taught REST APIs to my wife] (http://www.looah.com/source/view/2284)
 
-[Introduction to REST APIs] (https://itnext.io/
-javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
+[Introduction to REST APIs] (https://itnext.io/javascript-fundamentals-an-introduction-to-rest-apis-7cbe8a809d3b)
 
 [Idempotency in REST APIs] (https://restfulapi.net/idempotent-rest-apis/)
 
